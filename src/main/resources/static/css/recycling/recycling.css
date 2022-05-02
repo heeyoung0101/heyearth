@@ -1,0 +1,246 @@
+@charset "UTF-8";
+
+body{
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	min-width: 1400px;
+}
+
+hr{
+size : 1px;
+color : black;
+width : 100%;
+}
+
+h1{
+	font-size : 40px;
+}
+
+.intro-text{
+	padding-top : 60px;
+	padding-bottom : 60px;
+	margin-bottom : 60px;
+	height :10%;
+	text-align: center;
+	font-size : 15px;
+	display : inline-block;
+	background-image: url('/img/recyle-1.png');
+	background-size :  100%;
+font-weight: 500;
+background-color: #F5EDE2;
+background-position: center center;
+background-repeat: no-repeat;
+
+}
+.rec-img{
+	width : 100%;
+	margin-top: 150px;
+}
+#img{
+/* 	padding-top : 50px; */
+/* 	display: inline-block; */
+/* 	margin : 0 auto; */
+	float : left;
+	width : 50%;
+}
+
+#recyclingbtn {
+	text-align: center;
+}
+
+#search1, #search2 {
+	font-size: 15px;
+	width: 150px;
+	height: 40px;
+	background-color : #f6f5f0;
+	border : solid #1A271D 2px;
+	color : black;
+	font-weight: 400;
+	cursor: pointer;
+}
+
+#search1:hover {
+	background-color: #1A271D;
+	color : #f6f5f0;
+}
+#search1:focus {
+	background-color: #1A271D;
+	color : #f6f5f0;
+}
+#search2:hover {
+	background-color: #1A271D;
+	color : #f6f5f0;
+}
+#search2:focus {
+	background-color: #1A271D;
+	color : #f6f5f0;
+	/* margin-bottom : 60px; */
+}
+
+/* 사진으로 검색하기 */
+#recyclingFile {
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom : 60px;
+}
+
+
+.filebox label { 
+	display: inline-block; 
+	padding: 10px 80px; 
+	color: black; 
+	font-size: inherit; 
+	font-weight: 400;
+	line-height: normal; 
+	vertical-align: middle; 
+	background-color: #f6f5f0;
+	cursor: pointer; 
+	border: 2px solid #1A271D;
+	width: 137px; 
+	
+} 
+.filebox label:hover {
+	background-color: #1A271D;
+	color : #f6f5f0;
+}
+.filebox label:active {
+	background-color: #1A271D;
+	color : #f6f5f0;
+}
+
+.filebox input[type="file"] { /* 파일 필드 숨기기 */
+	position: absolute; 
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); 
+	border: 0;
+}
+
+
+#waycheck {
+	padding : 10px 100px;
+	font-size: inherit; 
+	font-weight: 400;
+	line-height: normal; 
+	background-color: #f6f5f0; 
+	cursor: pointer; 
+	border: 2px solid #1A271D; 
+	margin: 10px auto; 
+	width: 301px; 
+}
+
+#wayp {
+	margin:auto;
+	display : block;
+	width: 500px;
+}
+
+#waycheck:hover {
+	background-color: #1A271D;
+	color : #f6f5f0;
+}
+
+/* 키워드로 검색 */
+#recyclingKeyword {
+	margin-top : 10px;
+}
+
+#keywords {
+	text-align: center;
+	margin-bottom: 40px;
+	margin-top : 60px;
+}
+
+#keywords input[type="button"] {
+	display: inline-block; 
+	text-align: center;
+	padding: 10px 10px; 
+	color: black; 
+	font-size: inherit; 
+	line-height: normal; 
+	vertical-align: middle; 
+	background-color: #f6f5f0; 
+	cursor: pointer; 
+	border: 2px solid #1A271D; 
+	margin: 5px 3px;
+}
+
+#keywords input[type="button"]:hover {
+	background-color: #1A271D;
+	color : #f6f5f0;
+}
+
+#keywords input[type="button"]:focus {
+	background-color: #1A271D;
+	color : #f6f5f0;
+}
+
+#previewbox div{
+	display: inline-block;
+	border: solid black 1px;
+	width: 300px;
+	height: 300px;
+	text-align: center;
+	margin : 20px 20px;
+	margin-bottom : 60px;
+}
+
+/* 모달창 클릭시 주변배경 블랙 불투명 */
+.modal-overlay {
+	width: 100%;
+	height: 100%;
+	position : fixed;
+	left : 0;
+	top : 0;
+	display : flex;
+	flex-direction : column;
+	align-items : center;
+	justify-content : center;
+	
+	background : rgba(0,0,0, 0.5);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display : none;
+}
+
+/* 모달창 */
+.modal-window{
+	background-color : #F3EADF;
+	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 400px;
+    height: 700px;
+    position: relative;
+    padding: 10px;
+}
+
+#modalimg{
+	width: 400px;
+	height: 400px;
+}
+#previewp {
+	text-decoration: none;
+	color: black;
+	outline: none;
+}
+
+#modalcontent {
+	width: 400px;
+	height: 100px;
+	overflow: auto;
+}
+.scrap{
+	cursor: pointer;
+	border: 0 solid black; 
+	background-color: #F3EADF; 
+	color:ORANGE;
+	font-size:30px;
+}

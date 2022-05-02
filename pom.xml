@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+            
+    
     <modelVersion>4.0.0</modelVersion>
+            
+    
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.6</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
+        <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.example</groupId>
@@ -15,12 +19,12 @@
     <packaging>war</packaging>
     <name>heyearth</name>
     <description>Demo project for Spring Boot</description>
-
     <properties>
         <java.version>1.8</java.version>
     </properties>
-    
+            
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
@@ -36,54 +40,24 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.2.2</version>
         </dependency>
-                                		
+                                                		
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-
+                        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
-        
+                        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
-        <!-- 구글 클라우드 라이브러리-->
-    <!--     
-        <dependency>
-            <groupId>com.google.cloud</groupId>
-            <artifactId>libraries-bom</artifactId>
-            <version>25.0.0</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-                        
-        <dependency>
-            <groupId>com.google.cloud</groupId>
-            <artifactId>google-cloud-vision</artifactId>
-        </dependency>
-                         -->
-        
-        <!-- 구글 스토리지 라이브러리-->
-     <!--    <dependency>
-            <groupId>com.google.cloud</groupId>
-            <artifactId>libraries-bom</artifactId>
-            <version>25.1.0</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.google.cloud</groupId>
-            <artifactId>google-cloud-storage</artifactId>
-        </dependency>  -->       		
         
         <!-- for jsp -->
         <dependency>
@@ -104,9 +78,33 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-                                	
+
+        <!-- 강사님이 주신 소스에서 추가 -->
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-gcp-starter-vision</artifactId>
+		    <version>1.2.8.RELEASE</version>
+			
+		    
+		</dependency>
+
+
+        <dependency>
+    		<groupId>com.googlecode.json-simple</groupId>
+    		<artifactId>json-simple</artifactId>
+    		<version>1.1.1</version>
+		</dependency> 
+		
+		<!-- maven에서 추가한 파일 -->          
+        <!-- https://mvnrepository.com/artifact/com.google.auto.value/auto-value-annotations -->
+		<!-- <dependency>
+		    <groupId>com.google.auto.value</groupId>
+		    <artifactId>auto-value-annotations</artifactId>
+		    <version>1.7.4</version>
+		</dependency> -->
+        
     </dependencies>
-                	
+    
     <build>
         <plugins>
             <plugin>
@@ -115,21 +113,34 @@
             </plugin>
         </plugins>
     </build>
-                
+                        
     <dependencyManagement>
-        
+                        
         <dependencies>
-                                                
-            <dependency>
-                <groupId>com.google.cloud</groupId>
-                <artifactId>libraries-bom</artifactId>
-                <type>pom</type>
-                <scope>import</scope>
-                <version>25.1.0</version>
-            </dependency>
-        
+
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>2021.0.1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		
+			<dependency>
+				<groupId>com.google.cloud</groupId>
+				<artifactId>spring-cloud-gcp-dependencies</artifactId>
+				<version>3.2.1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		    
+		 <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+       	 </dependency>
+			
         </dependencies>
-                            
+                                            
     </dependencyManagement>
 
 </project>

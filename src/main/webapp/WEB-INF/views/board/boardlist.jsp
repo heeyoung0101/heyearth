@@ -1,150 +1,134 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	<!-- header import -->
+	<%@ include file="/WEB-INF/views/include/header.jsp" %>
+	
+	<!-- end of header import -->
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="board/layout/basic">
 <head>
+<title>게시판 메인 | heyEarth</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/css/board/boardlist.css" />
+
+<!-- js -->
+<script type="text/javascript" src="/js/board/boardlist.js"></script>
+
 <script src="jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function () {
-		
+		$("#inputbtn").on("click", function(){
+			location.href="/boardinput";
+		});
+		$("#findbtn").on("click", function(){
+			location.href="/boardfindkey";
+		});
 	});
 </script>
-<style>
-	#b_title{
-		margin-top : 50px;
-		margin-bottom : 50px;
-		margin-left : auto;
-		margin-right : auto;
-		width: 90%;
-	}
-	#b_content{
-		overflow: auto;
-	}
-	#findbtn{
-		width : 50px;
-		height : 25px;
-		background-color: #FFDDD0;
-		border: 2px solid pink;
-		border-radius: 5px;
-	}
-	#inputbtn{
-		text-align : center;
-		float: right;
-		width : 100px;
-		height : 25px;
-		background-color: #FFDDD0;
-		border: 2px solid pink;
-		border-radius: 5px;
-	}
-	#con_table{
-		width: 90%;
-		text-align: center;
-		margin : auto;
-		border-top : 1px solid gray;
-		border-collapse: collapse;
-		min-width : 500px;
-	}
-	th{
-		background-color: #FFDDD0;
-		border-bottom: 1px solid gray;
-	}
-	td{
-		padding: 20px;
-		border-bottom: 1px solid gray;
-	}
-	#not_td{
-		background-color: #DAE6FE;
-	}
-	a{
-		text-decoration: none;
-	}
-	a:link{
-		color : black;
-	}
-	a:visited{
-		color : black;
-	}
-	#b_type{
-		margin-right:20px;
-	}
-	#pagination{
-		padding : 20px;
-	}
-	
-	
-	
-</style>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>게시판 메인 | heyEarth</title>
-
-<!-- CSS -->
-<link rel="stylesheet" href="/css/board.css" />
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-<!-- js -->
-<script type="text/javascript" src="/js/boardlist.js"></script>
-
 </head>
 <body>
-	<!-- header import -->
-	<%@ include file="/WEB-INF/views/include/header.jsp" %>
-	<!-- end of header import -->
+
+<!-- Talk Talk Banner Script start -->
+	<script type="text/javascript" src="https://partner.talk.naver.com/banners/script"></script>
+	<div class="talk_banner_div" data-id="114553" style="position: fixed; right: 100px; bottom: 30px; z-index: 99;"></div>
+<!-- Talk Talk Banner Script end -->
+
 
 <section class="boardSection">
 	<div id="b_title">
-		<select id="b_type" name="b_type">
-			<option value="all"> 분류 </option>
-			<option value="not"> 공지 </option>
-			<option value="que"> 질문 </option>
-			<option value="req"> 요청 </option>
-		</select>
-		검색 : <input type="text" id="find" name="find" placeholder="검색어를 입력해주세요">
-		<input type="button" id="findbtn" name="findbtn" value="검색">
+		<div id="find_div">
+			<select id="contentnum" name="contentnum" onchange="page(1)">
+				<option value="5" <c:if test="${page.getContentnum() ==5 }">selected="selected"</c:if>> 5개 </option>
+				<option value="10" <c:if test="${page.getContentnum() ==10 }">selected="selected"</c:if>> 10개 </option>
+				<option value="15" <c:if test="${page.getContentnum() ==15 }">selected="selected"</c:if>> 15개 </option>
+			</select>
+			<form action="/boardfind" id="findform">
+				<select id="b_type" name="type">
+					<option value="all" selected="selected"> 게시물 분류 </option>
+					<option value="not"> 공지 </option>
+					<option value="que"> 질문 </option>
+					<option value="req"> 요청 </option>
+				</select>
+				검색 : <input type="text" id="find" name="keyword" autofocus="autofocus" placeholder="검색어를 입력해주세요">
+				<input type="submit" id="findbtn" value="검색">
+			</form>
+		</div>
 		
-		<input type="button" id="inputbtn" name="inputbtn" value="글작성">
+		<c:if test="${sessionScope.session_id == null }">
+		</c:if>
+		
+		<c:if test="${sessionScope.session_id != null }">
+			<input type="button" id="inputbtn" name="inputbtn" value="글작성">
+		</c:if>
 	</div>
 	
 	<div id="b_content">
 		<table class="contents" id="con_table">
-			<tr id="th">
-				<th>type</th>
-				<th>title</th>
-				<th>writer</th>
-				<th>date</th>
-				<th>views</th>
-			</tr>
-			<!-- 공지사항은 맨위에 -->
-			<tr id="not_td">
-				<td>공지</td>
-				<td><a href="/boardview">이거는 내가 뭔말을 하고 싶어서 이렇게 적었나면 그게 말야</a></td>
-				<td>매점아줌마</td>
-				<td>2022/04/01</td>
-				<td>123</td>
-			</tr>
-			<!-- 공지사항외 게시물 -->
-			<tr id="td">
-				<td>질문</td>
-				<td><a href="/boardview">오늘 매점에 신상 있나요 ?</a></td>
-				<td>황상철</td>
-				<td>2022/04/02</td>
-				<td>12</td>
-			</tr>
-			
+			<thead>
+				<tr id="th">
+					<th>type</th>
+					<th>title</th>
+					<th>writer</th>
+					<th>date</th>
+					<th>views</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${boardlist }" var="board">
+					<tr id="content_td" onClick="location.href='/boardview?b_no=${board.b_no }'">
+						<td>
+							<c:if test="${board.b_type =='all'}">전체</c:if> 
+							<c:if test="${board.b_type =='not'}">공지사항</c:if> 
+							<c:if test="${board.b_type =='que'}">질문</c:if> 
+							<c:if test="${board.b_type =='req'}">요청</c:if> 
+						</td>
+						<td>${board.b_title }</td>
+						<td>${board.id }</td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH-mm-ss" value="${board.b_regdate }" /></td>
+						<td>${board.b_view }</td>
+					</tr>
+				</c:forEach>
+				<c:forEach items="${test }" var="board">
+					<tr id="content_td" onClick="location.href='/boardview?b_no=${board.b_no }'">
+						<td>
+							<c:if test="${board.b_type =='not'}">공지사항</c:if> 
+							<c:if test="${board.b_type =='que'}">질문</c:if> 
+							<c:if test="${board.b_type =='req'}">요청</c:if> 
+						</td>
+						<td>${board.b_title }</td>
+						<td>${board.id }</td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH-mm-ss" value="${board.b_regdate }" /></td>
+						<td>${board.b_view }</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+			<tfoot>
+				<c:if test="${url != 'find'}">
+					<tr id="pagination">
+						<td colspan="5">
+							<!-- paging -->
+							<c:if test="${page.prev }">
+								<a href="javascript:page(${page.getStartPage()-1});">&laquo;</a>
+							</c:if>
+							<c:forEach begin="${page.getStartPage() }" end="${page.getEndPage() }" var="idx">
+									<a href="javascript:page(${idx });" class="pagination">${idx }</a>
+							</c:forEach>
+							<c:if test="$page.next">
+								<a href="javascript:page(${page.getEndPage()+1 });">&raquo;</a>
+							</c:if>
+						</td>
+					</tr>
+				</c:if>
+			</tfoot>
 		</table>
 	</div>
-	
-	<!-- 페이징처리 bootstrap -->
-	<div id="pagination">
-		<ul class="pagination pagination-sm justify-content-center">
-			<li class="page-item"><a class="page-link" href="#">이전</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">다음</a></li>
-		</ul>
-	</div>
+
 
 </section>
 

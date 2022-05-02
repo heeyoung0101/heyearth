@@ -5,15 +5,45 @@
     
 <mapper namespace="member.MemberDAO">
 	<!-- 회원가입 관련 매퍼 -->
-	<insert id="joinmember">
-		insert into member(id, pw, phone) values(#{id}, #{pw}, #{phone})
+	<insert id="joinmember" parameterType="memberdto">
+		insert into member(id, pw, phone) values(#{id}, #{pw}, #{phone});
 	</insert>
+	
 	<select id="nicknameCheck" resultType="int" parameterType="String">
-		select count(*) from member where id=#{id}
+		select count(*) from member where id=#{id};
 	</select>
 	
 	<!-- 로그인 관련 매퍼 -->
-	<select id="loginmember" resultType="MemberDTO" parameterType="String">
-		select * from member where id=#{id} and pw=#{pw}
+	<select id="loginmember" resultType="memberdto" parameterType="String">
+		select * from member where id=#{id} and pw=#{pw};
 	</select>
+	
+	<!-- 회원조회 -->
+	<select id="memberView" resultType="memberdto" parameterType="String">
+		select * from member where id=#{id};
+	</select>
+	
+	<!-- 회원정보 수정 - 비밀번호 확인 -->
+	<select id="pwck" resultType="int" parameterType="String">
+		select count(*) from member where pw=#{pw};
+	</select>
+	
+	<!-- 회원정보 수정 -->
+	<update id="updatemember" parameterType="String">
+		update member set pw=#{newpw}, phone=#{phone} where id=#{id};
+	</update>
+	
+	<!-- 회원 탈퇴 --> 
+	<!-- <delete id="deletemember" parameterType="String">
+		delete from member where id=#{id};
+	</delete> -->
+	
+	<select id="deletenum" resultType="int">
+		select count(*) from member where del = 'Y';
+	</select>
+	
+	<update id="deletemember" parameterType="String">
+		update member set id = #{withdrawId},del="Y" where id=#{id};
+	</update>
+
 </mapper>

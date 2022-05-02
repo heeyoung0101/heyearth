@@ -1,6 +1,12 @@
 @charset "UTF-8";
-
+body{
+	min-width: 1400px;
+}
 
 #joinresult {
+	margin-top: 200px;
 	text-align: center;
+}
+#spanid {
+	font-weight: bold;
 }

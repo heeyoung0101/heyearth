@@ -1,14 +1,340 @@
 @charset "UTF-8";
 
-.zero_search{
-
-	width : 300px;
+body{
+	background-color : #F6F5F0;
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	min-width: 1400px;
 }
 
-#search1, #search2{
-	background-color : #FFDDD0;
-	color : blue;
-	border : 0;
-	outline : 0;
+.zero_search{
+	margin-top : 50px;
+	text-align : center;
+}
+
+#zerosearch1, #zerosearch2{
+	padding-left : 25px;
+	padding-right : 25px;
+	padding-top : 7px;
+	padding-bottom : 7px;
 	font-size: 16px;
+	margin-left: 20px;
+	margin-right:20px;
+	font-weight : 400;
+	outline : 0;
+	border : 2px #1A271D solid;
+}
+
+#zerosearch1{
+	background-color : #f6f5f0;
+	color : #1A271D;
+}
+
+#zerosearch2{
+	background-color : #1A271D;
+	color : #f6f5f0;
+}
+
+#zerosearch1:hover, #zerosearch2:hover{
+	cursor : pointer;
+}
+
+#loc_menu, #loc_context{
+	
+	margin-left : auto;
+	margin-right : auto;
+	width : 85%;
+	margin-bottom : 50px;
+	
+}
+
+#loc_context{
+	text-align :center;
+}
+
+.Locmenu{
+	font-size:20px;
+	font-weight: 500;
+	margin-bottom : 20px;
+	margin-right : 15px;
+}
+
+#bigloc, #smallloc{
+	height : 32px;
+	width: 200px;
+	padding-left : 10px;
+	border: 1px solid #999;
+	border-radius: 0px;
+	background: url('../../img/arrow.png') no-repeat 95% 50%;
+	border-radius: 0px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	margin-left:10px;
+	margin-right:10px;
+	font-size : 14px;
+	background-color : #FFFFFF;
+}
+
+#bigloc::-ms-expand, #smallloc::-ms-expand {
+	display: none;
+}
+
+#locbtn{
+	height : 29px;
+	width : 60px;
+	font-size : 15px;
+	background-color : #F6F5F0;
+	color : #1A271D;
+	border : 1px solid #1A271D;
+}
+
+#locbtn:hover{
+	cursor : pointer;
+	background-color : #1A271D;
+	border : inherit;
+	color : #F6F5F0;
+}
+
+
+.Loczeroshop{
+	
+	color : #1A271D;
+	width : 400px;
+	height : 280px;
+	margin-top : 10px;
+	margin-right : 10px;
+	margin-left : 20px;
+	margin-bottom : 20px;
+	padding-top : 20px;
+	padding-left : 15px;
+	padding-right : 15px;
+	display : inline-block;
+	/*border : 2px solid #C7C1B8;*/
+	border : 1px solid #1A271D;
+	background-color : #FFFFFF;
+}
+
+.Zeroshopimg{
+	width : 400px;
+	height : 200px;
+	margin-right : 10px;
+}
+
+.Zeroshopname{
+	margin-bottom : 20px;
+	display : inline-block;
+	vertical-align : top;
+	font-size: 20px;
+	font-weight : 500;
+}
+
+.Nozeroshop{
+	margin-top : 10px;
+	font-size: 30px;
+}
+
+.Zeroshopclick:hover{
+	cursor : pointer;
+	font-weight: 700;
+}
+
+.Loczeroshop:hover{
+	background-color : #FFFFFF;
+	font-weight: 700;
+	/*border : 4px solid #C7C1B8;
+	border-width : 4px;*/
+	border : 2px solid #1A271D;
+}
+
+.modal-overlay{
+	width : 100%;
+	height : 100%;
+	position : absolute;
+	left : 0;
+	top : 0;
+	display : flex;
+	flex-direction : column;
+	align-items : center;
+	justify-content : center;
+	
+	background : rgba(0,0,0, 0.5);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display : none;
+}
+
+.modal-window{
+	/*background-color : #81A88A;*/
+	background-color : #F3EADF;
+	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 400px;
+    height: 550px;
+    position: relative;
+    padding: 10px;
+}
+
+.modaltitle {
+	margin-top : 35px;
+    padding-left: 10px;
+    /*color : #F6F5F0;*/
+    color : #1A271D;
+    margin-left : 10px;
+}
+
+.modalh2{
+	font-weight: bold;
+}
+
+.close-area{
+	display: inline;
+    float: right;
+    padding-right: 10px;
+    cursor: pointer;
+    font-weight : bold;
+    color : #1A271D;
+    font-size : 18px;
+}
+
+.modalcontent{
+	margin-top: 20px;
+    padding: 0px 10px;
+    /*color: #F6F5F0;*/
+    color : #1A271D;
+    margin-left : 10px;
+}
+
+.modalupper, #modalimg{
+	margin-top : 15px;
+	margin-left : 10px;
+	width : 350px;
+	height : 200px;
+	margin-bottom : 10px;
+}
+
+#modalsite, #modalmap{
+	background-color : #F6F5F0;
+	width : 100px;
+	height : 40px;
+	display : inline-block;
+	text-align : center;
+	font-size: 20px;
+	margin-right: 20px;
+	margin-left : 20px;
+	line-height: 35px;
+	border : 0;
+}
+
+#modalsite:hover, #modalmap:hover{
+	cursor : pointer;
+	font-weight: bold;
+}
+
+#modalbtn{
+	margin-top : 20px;
+	text-align : center;
+}
+
+/* body 스크롤 방지용 */
+.stop-scroll{
+  height: 100%;
+  overflow: hidden;
+}
+
+a {
+	text-decoration: none;
+	color : #1A271D;
+}
+
+#searchMy{
+	margin-left : auto;
+	margin-right : auto;
+	width : 100%;
+	margin-bottom : 70px;
+	text-align :center;
+}
+
+#mapname{
+	text-align : left;
+	margin-left:0;
+	width:30%;
+	height : 600px;
+	display : inline-block;
+	vertical-align : top;
+	overflow : auto;
+	padding-right : 1%;
+	border-right : 2px solid #C7C1B8;
+}
+
+
+#map{
+	margin-left : 5%;
+	height : 600px;
+	width : 800px;
+	display : inline-block;
+	border : 2px solid #C7C1B8;
+}
+
+.maptitle{
+	margin-bottom : 50px;
+	text-align : left;
+	margin-left : 10%;
+}
+.mapinform{
+	text-align : left;
+	margin-left : 10%;
+}
+
+
+.mapzeroshop{
+	width : 90%;
+	
+	/*border : 4px dashed #C7C1B8;*/
+	border : 1px solid #1A271D;
+	background-color : #FFFFFF;
+	margin-bottom : 50px;
+	padding-top : 20px;
+	padding-left : 30px;
+	padding-bottom : 20px;
+}
+
+.mapzeroshopname{
+	font-size : 20px;
+	color : #1A271D;
+	font-weight: 500;
+	margin-top : 30px;
+	margin-bottom : 30px;
+}
+
+.mapzeroshopname:hover{
+	font-weight : bold;
+}
+
+.mapzeroshopimg{
+	margin-top : 15px;
+	width : 90%;
+	height : 200px;
+}
+
+.maploading{
+	margin-top : 50px;
+	width : 200px;
+	height : 200px;
+	margin-left : auto;
+	margin-right : auto;
+	display : block;
+}
+
+.mapzeroshopurl{
+	color : blue;
+}
+
+.iw_inner{
+	padding : 10px;
 }

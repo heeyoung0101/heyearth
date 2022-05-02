@@ -1,5 +1,7 @@
 package member;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MemberDTO {
 	String id;
 	String phone;
@@ -8,7 +10,39 @@ public class MemberDTO {
 	int grade;
 	int point;
 	int admin;
+	int carbon;
+	MultipartFile image;
+	String newpw;
+	String newpwck;
+	String del;
 	
+	
+	
+
+	public String getDel() {
+		return del;
+	}
+	public void setDel(String del) {
+		this.del = del;
+	}
+	public String getNewpw() {
+		return newpw;
+	}
+	public void setNewpw(String newpw) {
+		this.newpw = newpw;
+	}
+	public String getNewpwck() {
+		return newpwck;
+	}
+	public void setNewpwck(String newpwck) {
+		this.newpwck = newpwck;
+	}
+	public MultipartFile getImage() {
+		return image;
+	}
+	public void setImage(MultipartFile image) {
+		this.image = image;
+	}
 	public String getId() {
 		return id;
 	}
@@ -50,6 +84,12 @@ public class MemberDTO {
 	}
 	public void setAdmin(int admin) {
 		this.admin = admin;
+	}
+	public int getCarbon() {
+		return carbon;
+	}
+	public void setCarbon(int carbon) {
+		this.carbon = carbon;
 	}
 	
 }

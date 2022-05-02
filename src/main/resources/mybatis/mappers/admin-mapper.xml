@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin.AdminDAO">
+
+	<select id="adminzeroshoplist" resultType="zeroshopdto">
+		select * from zeroshop order by s_name;;
+	</select>
+	
+	<delete id="adminzeroshopdel" parameterType="int">
+		delete from zeroshop where s_code=#{s_code};
+	</delete>
+	
+	<select id="adminzeroshopinfo" resultType="zeroshopdto" parameterType="int">
+		select * from zeroshop where s_code=#{s_code};
+	</select>
+	
+	<select id="checkloccode" resultType="int" parameterType="locationdto">
+		select count(*) from location where big_loc=#{big_loc} and small_loc=#{small_loc};
+	</select>
+	
+	<select id="loccode" resultType="int" parameterType="locationdto">
+		select l_code from location where big_loc=#{big_loc} and small_loc=#{small_loc};
+	</select>
+	
+	<insert id="insertloc" parameterType="locationdto">
+		insert into location(big_loc,small_loc) values (#{big_loc},#{small_loc});
+	</insert>
+	
+	<update id="updatezeroshop" parameterType="zeroshopdto">
+		update zeroshop set l_code=#{l_code}, s_name=#{s_name}, s_url=#{s_url}, s_inform=#{s_inform}, s_location=#{s_location}, s_call=#{s_call}, s_close=#{s_close}, s_hour=#{s_hour}, s_photo=#{s_photo}, latitude=null, longitude=null where s_code=#{s_code};
+	</update>
+	
+	<insert id="insertzeroshop" parameterType="zeroshopdto">
+		insert into zeroshop(l_code,s_name,s_url,s_inform,s_location,s_call,s_close,s_hour,s_photo) values (#{l_code},#{s_name},#{s_url},#{s_inform},#{s_location},#{s_call},#{s_close},#{s_hour},#{s_photo});
+	</insert>
+	
+	
+	
+	
+	
+	<select id="adminmissionlist" resultType="missiondto" parameterType="String">
+		select * from mission where m_type=#{m_type} order by m_date desc, m_name;
+	</select>
+	
+	<delete id="adminmissiondel" parameterType="int">
+		delete from mission where m_code=#{m_code};
+	</delete>
+	
+	<select id="adminmissioninfo" resultType="missiondto" parameterType="int">
+		select * from mission where m_code=#{m_code};
+	</select>
+	
+	<update id="updatemission" parameterType="missiondto">
+		update mission set m_location=#{m_location}, m_date=#{m_date}, m_inform=#{m_inform}, m_carbon=#{m_carbon}, m_point=#{m_point}, m_personnel=#{m_personnel}, m_photo=#{m_photo} where m_code=#{m_code};
+	</update>
+	
+	<insert id="insertmission" parameterType="missiondto">
+		insert into mission(m_type,m_name,m_location,m_date,m_inform,m_carbon,m_point,m_personnel,m_photo) values (#{m_type},#{m_name},#{m_location},#{m_date},#{m_inform},#{m_carbon},#{m_point},#{m_personnel},#{m_photo});
+	</insert>
+	
+	<select id="missionname" resultType="String" parameterType="String">
+		select distinct(m_name) from mission where m_type=#{m_type};
+	</select>
+	
+	<select id="missioninfo1" resultType="missiondto" parameterType="missiondto">
+		select * from mission where m_type=#{m_type} and m_name=#{m_name};
+	</select>
+	
+	
+	
+	
+	<select id="missionreviewlist" resultType="missiondto" parameterType="int">
+		select m.m_code as m_code, m_name, p_star,p_code, p_photo, p_review, id,p_redcard
+    	from participation p, mission m 
+    	where m.m_code = p.m_code and p.m_code = #{m_code} and p_complete = 1;
+		
+	</select>
+	
+	<update id="adminmemberpoint" parameterType="int">
+		update member mem,participation p,mission mis 
+		set mem.point=mem.point-mis.m_point 
+		where p.id=mem.id and p.p_code=#{p_code} and p.m_code=mis.m_code;
+	</update>
+	
+	<update id="adminmembercarbon" parameterType="int">
+		update member mem,participation p,mission mis 
+		set mem.carbon=mem.carbon-mis.m_carbon 
+		where p.id=mem.id and p.p_code=#{p_code} and p.m_code=mis.m_code;
+	</update>
+	
+	<select id="adminmembercurcarbon" parameterType="int" resultType="int">
+		select carbon from member m, participation p where p.p_code=#{p_code} and p.id=m.id;
+	</select>
+	
+	<select id="membergradelist" resultType="gradedto">
+		select * from grade;
+	</select>
+	
+	<update id="adminmembergrade" parameterType="int">
+		update member m,participation p
+		set grade=#{grade}
+		where p.id=m.id and p.p_code=#{p_code};
+	</update>
+	
+	<delete id="adminreviewdel" parameterType="int">
+		delete from participation where p_code=#{p_code};
+	</delete>
+	
+	<select id="adminreviewinfo" parameterType="int" resultType="missiondto">
+		select p_code,id,p.m_code as m_code,p_complete,p_star,p_review,p_photo,m_name,m_type,m_location,m_date,p_redcard
+		from participation p,mission m 
+		where p.p_code=#{p_code} and p.m_code=m.m_code;
+	</select>
+	
+	<update id="updatereview" parameterType="missiondto">
+		update participation
+		set p_redcard=#{p_redcard}, p_star=#{star}, p_review=#{p_review},p_photo=#{p_photo} where p_code=#{p_code};
+	</update>
+	
+	<select id="mcodetopcode" parameterType="int" resultType="int">
+		select m_code from participation where p_code=#{p_code};
+	</select>
+	
+	
+	
+	<select id="adminguidelist" resultType="recyclingdto">
+		select * from recycling order by r_class, r_name;
+	</select>
+	
+	<delete id="adminguidedel" parameterType="int">
+		delete from recycling where r_code=#{r_code};
+	</delete>
+	
+	<select id="adminguideinfo" resultType="recyclingdto" parameterType="int">
+		select * from recycling where r_code=#{r_code};
+	</select>
+	
+	<update id="updateguide" parameterType="recyclingdto">
+		update recycling set r_name=#{r_name}, r_class=#{r_class}, r_way=#{r_way}, r_photo=#{r_photo} where r_code=#{r_code};
+	</update>
+	
+	<insert id="insertguide" parameterType="recyclingdto">
+		insert into recycling(r_class,r_name,r_way,r_photo) values (#{r_class},#{r_name},#{r_way},#{r_photo});
+	</insert>
+	
+	<select id="guideclasslist" resultType="String">
+		select distinct(r_class) from recycling;
+	</select>
+	
+
+	
+	
+	<select id="adminboardlist" resultType="boarddto" parameterType="String">
+		select * from board where b_type=#{b_type} order by b_regdate desc;
+	</select>
+	
+	<delete id="adminboarddel" parameterType="int">
+		delete from board where b_no=#{b_no};
+	</delete>
+	
+	<select id="adminboardinfo" resultType="boarddto" parameterType="int">
+		select * from board where b_no=#{b_no};
+	</select>
+	
+	<insert id="insertboard" parameterType="boarddto">
+		insert into board(id,b_title,b_content,b_regdate,b_view,b_type,b_img) values (#{id},#{b_title},#{b_content},now(),0,#{b_type},#{b_img});
+	</insert>
+	
+	<update id="updateboard" parameterType="boarddto">
+		update board set b_type=#{b_type}, b_title=#{b_title},b_content=#{b_content},b_img=#{b_img} where b_no= #{b_no};
+	</update>
+	
+	
+
+
+	<select id="commentlist" parameterType="int" resultType="commentdto">
+		select * from comment where b_no=#{b_no};
+	</select>
+	
+	<insert id="admincommentinsert" parameterType="commentdto">
+		insert into comment(b_no,id,c_comment,c_order,c_regdate) values (#{b_no},#{id},#{c_comment},0,now());
+	</insert>
+	
+	<update id="admincommentupdate" parameterType="commentdto">
+		update comment set c_comment=#{c_comment}, c_regdate=now() where c_index=#{c_index};
+	</update>
+	
+	<delete id="admincommentdelete" parameterType="int">
+		delete from comment where c_index=#{c_index};
+	</delete>
+
+
+	
+	
+	<select id="adminmemberlist" resultType="memberdto">
+		select * from member where admin != 1 order by del desc, id ;
+	</select>
+	
+	<select id="admindeletenum" resultType="int">
+		select count(*) from member where del = 'Y';
+	</select>
+	
+	<update id="adminmemberdel" parameterType="String">
+		update member set id = #{withdrawId},del="Y" where id=#{id};
+	</update>
+	
+	<select id="adminmemberboard" resultType="boarddto" parameterType="String">
+		select * from board where id=#{id} and b_type="que";
+	</select>
+	
+	<select id="adminmembermission" resultType="missiondto" parameterType="String">
+		select p_code,id,p.m_code as m_code,m_name,m_type,m_location,m_date,p_star,p_review,p_photo, p_redcard
+		from participation p,mission m 
+		where p.id=#{id} and p.m_code=m.m_code and p_complete=1;
+	</select>
+	
+	<select id="adminmemberboardlist" resultType="boarddto" parameterType="boarddto">
+		select * from board where b_type=#{b_type} and id=#{id};
+	</select>
+	
+	<select id="adminmembermod" resultType="memberdto" parameterType="String">
+		select * from member where id=#{id};
+	</select>
+	
+	<update id="updatemember" parameterType="memberdto">
+		update member set grade=#{grade}, point=#{point}, carbon=#{carbon} where id=#{id};
+	</update>
+	
+	<select id="idtopcode" parameterType="int" resultType="String">
+		select id from participation where p_code=#{p_code};
+	</select>
+	
+	
+	
+	
+	
+	
+	<select id="adminid" resultType="String">
+		select id from member where admin=1;
+	</select>
+	
+	<select id="admininfo" resultType="memberdto" parameterType="String">
+		select * from member where id=#{id};
+	</select>
+	
+	<update id="updateadmin" parameterType="memberdto">
+		update member set phone=#{phone}, pw=#{pw} where id=#{id};
+	</update>
+	
+	<select id="searchpw" resultType="String" parameterType="String">
+		select pw from member where id=#{id};
+	</select>
+	
+	
+</mapper>
